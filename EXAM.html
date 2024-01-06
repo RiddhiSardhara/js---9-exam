@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <input type="text" id="name" class="form-control" placeholder="Enter Product">
+    <input type="number" id="price" class="form-control" placeholder="Enter price">
+    <button onclick="save()" class="btn btn-primary mt-2">Add</button>
+    <div class="row" id="row"></div>
+
+    <input type="text" id="firstname" class="form-control" placeholder="Enter Product">
+    <input type="number" id="amount" class="form-control" placeholder="Enter price">
+    <input type="hidden" name="index" id="index">
+    <button onclick="finalUpdate()" class="btn btn-primary mt-2">update</button>
+
+    <id class="Output" onclick="test()"></id>
+    <script>
+        const arr = JSON.parse(localStorage.getItem("product")) || []
+        const cart = JSON.parse(localStorage.getItem("cart")) || []
+
+
+
+        // Add TO Product
+
+        function save() {
+            const name = document.getElementById("name").value
+            const price = document.getElementById("price").value
+
+            const data = {
+                name,
+                price
+            }
+            console.log(data);
+            arr.push(data)
+            localStorage.setItem("product", JSON.stringify(arr))
+            loaddata(data)
+        }
+        arr.forEach((item, ind) => loaddata(item))
+        function loaddata(item, ind) {
+            const row = document.getElementById("row")
+            const div = document.createElement("div")
+            div.innerHTML = `<div class="card mt-2 flex" style="width: 18rem;">
+
+                         <div class="card-body">
+                         <h5 class="card-title">${item.name}</h5>
+                            <p class="card-text">${item.price}</p>
+                            <a href="#" class="btn btn-primary" onclick ="cartdata(${ind})" >ADD TO CART</a>
+                            <a href="#" class="btn btn-primary" onclick ="removedata(${ind})" >REMOVE</a>
+                            <a href="#" class="btn btn-primary mt-2 d-flex" onclick ="viewdata(${ind})" >VIEW</a>
+                        </div> 
+                        </div>`
+            row.appendChild(div)
+        }
+
+        //ADD TO CART
+
+        function cartdata(ind) {
+            console.log(ind);
+            const data = arr[ind]
+            console.log(data);
+            cart.push(data)
+            localStorage.setItem("cart", JSON.stringify(arr))
+        }
+
+        //remove data
+        function removedata(ind) {
+            console.log(ind);
+            arr.splice(ind, 1)
+            console.log(arr);
+            localStorage.setItem("product", JSON.stringify(arr))
+            location.reload()
+        }
+
+        // viewdata
+        function viewdata(ind) {
+            const data = arr[ind];
+            console.log(data);
+
+            document.getElementById("firstname").value = data.name;
+            document.getElementById("amount").value = data.price;
+            document.getElementById("index").value = ind;
+        }
+        function viewdata(ind) {
+            const data = arr[ind];
+            console.log(data);
+
+            document.getElementById("firstname").value = data.name;
+            document.getElementById("amount").value = data.price;
+            document.getElementById("index").value = ind;
+        }
+
+        function loaddata() {
+            const row = document.getElementById("row");
+            row.innerHTML = '';
+
+            arr.forEach((item, ind) => {
+                const div = document.createElement("div");
+                div.innerHTML = `<div class="card mt-2 flex" style="width: 18rem;">
+                         <div class="card-body">
+                             <h5 class="card-title">${item.name}</h5>
+                             <p class="card-text">${item.price}</p>
+                             <a href="#" class="btn btn-primary" onclick ="cartdata(${ind})">ADD TO CART</a>
+                             <a href="#" class="btn btn-primary" onclick ="removedata(${ind})">REMOVE</a>
+                             <a href="#" class="btn btn-primary mt-2 d-flex" onclick ="viewdata(${ind})">VIEW</a>
+                         </div> 
+                     </div>`;
+                row.appendChild(div);
+            });
+        }
+
+        // update finat data
+
+        function finalUpdate() {
+            const name = document.getElementById("firstname").value
+            const price = document.getElementById("amount").value
+            const index = parseInt(document.getElementById("index").value)
+
+            const data = {
+                name,
+                price,
+            }
+            console.log(data, index);
+            arr.splice(index, 1, data)
+            console.log(arr);
+            localStorage.setItem("product", JSON.stringify(arr))
+            location.reload()
+        }
+
+
+        // Que : find maximum element  in 3 number
+        function findmax(a, b, c) {
+            return Math.max(a, b, c)
+        }
+        let num1 = 10
+        let num2 = 5
+        let num3 = 8
+
+        let maxNumber = findmax(num1, num2, num3)
+        console.log("the maximum number is : ", maxNumber);
+
+
+        // creat array
+
+        const array = [100, 200, 400, 600, 800, 1000, 1500, 800]
+        console.log(array);
+        const result = array.filter(item => item > 200)
+        console.log(result);
+
+        const Outputdiv = document.getElementById("Output").value
+        const final = document.createElement("p")
+        p.innerHTML =
+        `</p></p>`
+        Output.appendChild(final)
+
+
+    </script>
+    <!-- js file -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
